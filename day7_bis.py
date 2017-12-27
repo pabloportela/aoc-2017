@@ -32,9 +32,7 @@ def find_unbalanced_children(disc):
 
 def get_disc_from_line(line):
     relations = line.split('->')
-    
     node = relations[0].split('(')
-
     name = node[0].strip()
     weight = node[1][:node[1].index(')')]
 
