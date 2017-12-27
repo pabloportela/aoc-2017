@@ -25,8 +25,8 @@ def find_unbalanced_children(disc):
             print(c.name, c.weight, c.full_weight)
         print('################')
 
-    for c in disc.children:
-        find_unbalanced_children(c)
+        for c in disc.children:
+            find_unbalanced_children(c)
 
 
 
