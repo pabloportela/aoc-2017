@@ -12,20 +12,21 @@ def get_hash(ascii_lengths):
             current_position += length + skip_size
             skip_size += 1
 
-    return dense_hash(circle).lower()
+    return dense_hash(circle)
 
 
 def dense_hash(circle):
     assert(len(circle) == 256)
     
     processed_block = [process_block(circle[i * 16: i * 16 + 16]) for i in range(16)]
-    return ''.join(processed_block)
+    return ''.join(processed_block).lower()
         
 
 def process_block(block):
     block = list(block)
     hexa = reduce(lambda x, y: x ^ y, block)
     return '{:02X}'.format(hexa)
+
 
 def reverse_range(circle, start, length):
     size = len(circle)
@@ -44,16 +45,11 @@ def wrapped_swap(circle, a, b):
     circle[a], circle[b] = circle[b], circle[a]
 
 
-def ascii_to_int(ascii_lengths):
-    return [ord(c) for c in ascii_lengths]
-
-
 def get_lengths(ascii_lengths):
-    return ascii_to_int(ascii_lengths) + [17, 31, 73, 47, 23]
+    return [ord(c) for c in ascii_lengths] + [17, 31, 73, 47, 23]
 
 
 def test():
-    assert(ascii_to_int('1,2,3') == [49, 44, 50, 44, 51])
     assert(get_lengths('1,2,3') == [49, 44, 50, 44, 51, 17, 31, 73, 47, 23])
 
     assert(get_hash('') == 'a2582a3a0e66e6e86e3812dcb672a272')
