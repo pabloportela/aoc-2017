@@ -24,7 +24,7 @@ def dense_hash(circle):
     assert(len(circle) == 256)
     processed_block = [process_block(circle[i * 16: i * 16 + 16]) for i in range(16)]
     return ''.join(processed_block).lower()
-        
+
 
 def process_block(block):
     block = list(block)
@@ -54,23 +54,12 @@ def get_lengths(ascii_lengths):
 
 
 def get_q_used_squares(key):
-    return sum(get_q_used_squares_from_row(key, i) for i in range(1, 129))
-
-
-def get_q_used_squares_from_row(key, i):
-    return count_set_bits_from_hexa_str(get_hash('{}-{}'.format(key, i)))
+    return sum(count_set_bits_from_hexa_str(get_hash('{}-{}'.format(key, i))) for i in range(1, 129))
 
 
 def count_set_bits_from_hexa_str(s):
-    return sum(count_set_bits_from_hexa_digit(int(c, 16)) for c in s)
-
-
-def count_set_bits_from_hexa_digit(d):
-    #return sum((n >> s) & 1 for s in range(4))
-    assert(0 <= d < 16)
     count_lookup = [0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4]
-    return count_lookup[d]
-
+    return sum(count_lookup[int(c, 16)] for c in s)
 
 
 def main():
