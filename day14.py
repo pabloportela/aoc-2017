@@ -54,7 +54,7 @@ def get_lengths(ascii_lengths):
 
 
 def get_q_used_squares(key):
-    return sum(count_hash_bits(get_hash('{}-{}'.format(key, i))) for i in range(1, 129))
+    return sum(count_hash_bits(get_hash('{}-{}'.format(key, i))) for i in range(128))
 
 
 def count_hash_bits(s):
