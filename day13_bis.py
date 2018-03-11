@@ -47,8 +47,6 @@ class Scanner(object):
         while self._is_trip_safe(w):
             w += 1
 
-        if w % 10000 == 0:
-            print(w)
         return w
 
 
