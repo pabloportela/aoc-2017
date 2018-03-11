@@ -10,7 +10,7 @@ class DuelingGenerator(object):
         self.multiple = multiple
 
     def __iter__(self):
-        self.current = self.seed * self.factor
+        self.current = self.seed
         self.i_count = 0
         return self
 
