@@ -54,10 +54,10 @@ def get_lengths(ascii_lengths):
 
 
 def get_q_used_squares(key):
-    return sum(count_set_bits_from_hexa_str(get_hash('{}-{}'.format(key, i))) for i in range(1, 129))
+    return sum(count_hash_bits(get_hash('{}-{}'.format(key, i))) for i in range(1, 129))
 
 
-def count_set_bits_from_hexa_str(s):
+def count_hash_bits(s):
     count_lookup = [0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4]
     return sum(count_lookup[int(c, 16)] for c in s)
 
