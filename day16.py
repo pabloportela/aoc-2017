@@ -19,7 +19,7 @@ def parse_moves(filename):
 
 
 def dance(dancers, moves):
-    dancers = deque(list(dancers))
+    dancers = deque(dancers)
     for move in moves:
         perform_move(move, dancers)
 
@@ -38,13 +38,13 @@ def perform_move(move, dancers):
                 
     elif op == 'x':
         # exchange (swap by offset)
-        a, b = list(map(int, data.split('/')))
+        a, b = map(int, data.split('/'))
         assert(0 <= a < q_dancers and 0 <= b < q_dancers)
         dancers[a], dancers[b] = dancers[b], dancers[a]
 
     elif op == 'p':
         # parner (swap by value)
-        a, b = list(dancers.index(c) for c in data.split('/'))
+        a, b = (dancers.index(c) for c in data.split('/'))
         assert(0 <= a < q_dancers and 0 <= b < q_dancers)
         dancers[a], dancers[b] = dancers[b], dancers[a]
 
