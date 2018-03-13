@@ -41,7 +41,7 @@ class Processor(object):
 
         else:
             # string, dereference register
-            return self._registers.get(arg)
+            return self._registers[arg]
 
 
     def _process(self):
@@ -70,8 +70,7 @@ class Processor(object):
 
         return op, (arg1, arg2)
 
-    def _op_dispatcher(self, op, arg1, arg2):
-        self._ops[op](self, arg1, arg2)
+    # operations
 
     def _op_snd(self, x, y):
         self.last_note = self._resolve(x)
