@@ -77,10 +77,6 @@ def get_turning_direction(grid, p, direction):
         return (0, -1)
 
 
-def is_direction_horizontal(direction):
-    return bool(direction[0])
-
-
 def find_start(grid):
     return grid[0].index('|')
 
