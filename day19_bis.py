@@ -4,41 +4,35 @@ import sys
 
 
 
-def collect_word(grid):
+def count_steps(grid):
     # grid is a list of lists thus grid[row][col], or grid[y][x]
 
-    letters = []
     col = find_start(grid)
-    go_straight(grid, (0, col), (1, 0), letters)
-
-    return ''.join(letters)
+    return go_straight(grid, (0, col), (1, 0), 0)
 
 
 def is_within_bounds(grid, r, c):
     return 0 <= r < len(grid) and 0 <= c < len(grid[0])
 
 
-def go_straight(grid, p, direction, letters):
+def go_straight(grid, p, direction, q_steps):
 
     assert(is_within_bounds(grid, p[0], p[1]))
     c = grid[p[0]][p[1]]
 
     if c == ' ':
         # done, reclaim stack with great pride
-        return
+        return q_steps
 
     elif c == '+':
         # change direction
         direction = get_turning_direction(grid, p, direction)
 
-    elif c.isalpha():
-        # collect letter, keep on going
-        letters.append(c)
-
     else:
-        assert(c in ('-', '|'))
+        # keep on going
+        assert(c in ('-', '|') or c.isalpha())
 
-    go_straight(grid, (p[0] + direction[0], p[1] + direction[1]), direction, letters)
+    return go_straight(grid, (p[0] + direction[0], p[1] + direction[1]), direction, q_steps + 1)
 
 
 def get_turning_direction(grid, p, direction):
@@ -99,18 +93,18 @@ def test():
        list('     |  |  |  D '),
        list('     +B-+  +--+ '),
     ]
-    assert(collect_word(grid) == 'ABCDEF')
+    assert(count_steps(grid) == 38)
 
 
 def main():
-    # test()
+    test()
 
     with open('day19_input.txt') as f:
         grid = [list(l) for l in f.readlines()]
 
     # print_grid(grid)
     sys.setrecursionlimit(50000)
-    print(collect_word(grid))
+    print(count_steps(grid))
 
 
 main()
