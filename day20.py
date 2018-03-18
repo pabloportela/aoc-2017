@@ -11,8 +11,8 @@ def get_long_term_closest(particles):
         t += 1
 
 
-def get_closest_particle_position(particle_positions, t):
-    particle_distances = ((i, get_manhattan_distance(p, t)) for i, p in enumerate(particle_positions))
+def get_closest_particle_position(particles, t):
+    particle_distances = ((i, get_manhattan_distance(p, t)) for i, p in enumerate(particles))
     return min(particle_distances, key=lambda x: x[1])[0]
 
 
