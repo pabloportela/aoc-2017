@@ -31,14 +31,10 @@ def get_particle_position(particle, t):
 
 
 def parse_particle_line(line):
-    part_p, part_v, part_a = [x.strip()[x.index('<') + 1: -1] for x in line.split(', ')]
+    p, v, a = [x.strip()[x.index('<') + 1: -1] for x in line.split(', ')]
     parse = lambda x: list(map(int, x.split(',')))
 
-    position = parse(part_p)
-    acceleration = parse(part_a)
-    velocity = tuple(v + a for v, a in zip(parse(part_v), acceleration))
-
-    return position, velocity, acceleration
+    return parse(p), parse(v), parse(a)
 
 
 def main():
