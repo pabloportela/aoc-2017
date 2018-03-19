@@ -1,7 +1,7 @@
 #!/usr/bin/python3.5
 
 
-def get_long_term_closest(particles):
+def print_long_term_closest(particles):
     # from now on, 't' referst to time without overriding standard libraries
     t = 0
 
@@ -17,12 +17,13 @@ def get_closest_particle_position(particles, t):
 
 
 def get_manhattan_distance(particle, t):
+    ''' not euclidean, but in a grid fashion '''
     return sum(map(abs, get_particle_position(particle, t)))
 
 
 def get_displacement(v, a, t):
-    ''' plain formulae from physics '''
-    return v * t + (1/2) * a * (t ** 2) if t else 0
+    ''' get linear displacement from origin, big thanks to the greeks '''
+    return t * v + a * t * (t + 1) / 2
 
 
 def get_particle_position(particle, t):
@@ -42,7 +43,7 @@ def main():
     with open('day20_input.txt') as f:
         particles = [parse_particle_line(l) for l in f.readlines()]
 
-    get_long_term_closest(particles)
+    print_long_term_closest(particles)
 
 
 main()
