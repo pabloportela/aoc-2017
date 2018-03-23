@@ -35,7 +35,7 @@ def get_displacement(v, a, t):
 
 
 def get_particle_position(particle, t):
-    ''' return original position plus displacement for the time being, in an (x,y,x) tuple '''
+    ''' return original position plus displacement for the time being, in an (x,y,z) tuple '''
     position, velocity, acceleration = particle
     return tuple(get_displacement(velocity[i], acceleration[i], t) + position[i] for i in range(3))
 
