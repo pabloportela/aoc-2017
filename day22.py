@@ -7,11 +7,6 @@ class InfiniteGrid(object):
     def __init__(self, rows, c, r):
         self._initialise_quadrants(rows, c, r)
 
-        #'123aq',
-        #'456bw',
-        #'789ct',
-        #'defgy',
-        #'hijku',
 
     def _initialise_quadrants(self, rows, c, r):
         self.quads = [
@@ -153,10 +148,9 @@ class InfectionGrid(object):
 
 
     def print(self, qs=10):
-        for col in range(-qs, qs):
-            print('{}'.format(col), end='')
         print('\n ' + '-' * (qs * 6))
         for row in range(qs, -qs, -1):
+            print('|', end='')
             for col in range(-qs, qs):
                 cell = '#' if self.grid.get(row, col) else '.'
                 if self.current_row == row and self.current_col == col:
@@ -164,18 +158,8 @@ class InfectionGrid(object):
                 else:
                     print(' {} '.format(cell), end='')
             
-            print('|', str(row))
+            print('|')
         print(' ' + '-' * (qs * 6))
-
-
-
-def get_infection_count(rows, r, c, q_bursts):
-    g = InfectionGrid(rows, r, c)
-
-    for _ in range(q_bursts):
-        g.burst()
-
-    return g.infection_count
 
 
 def test():
@@ -191,7 +175,6 @@ def test():
     g = InfiniteGrid(rows, 2, 2)
 
     # test quadrant spitting
-    # print(g.quads)
     assert(g.quads == [
             [['6', 'b', 'w'], ['3', 'a', 'q']],
             [['5', '4'], ['2', '1']],
@@ -235,7 +218,6 @@ def test():
     # test InfectionGrid
     rows = ['..#', '#..', '...']
     g = InfectionGrid(rows, 1, 1)
-    # g.print()
 
     # test infection test
     assert(g._is_position_infected(1, -1) is False)
@@ -261,6 +243,14 @@ def test():
     assert(g.current_col == -1)
 
     # integration test
+    def get_infection_count(rows, r, c, q_bursts):
+        g = InfectionGrid(rows, r, c)
+
+        for _ in range(q_bursts):
+            g.burst()
+
+        return g.infection_count
+
     assert(get_infection_count(rows, 1, 1, 1) == 1)
     assert(get_infection_count(rows, 1, 1, 2) == 1)
     assert(get_infection_count(rows, 1, 1, 6) == 5)
@@ -274,16 +264,13 @@ def main():
 
     with open('day22_input.txt') as f:
         rows = [r.strip() for r in f.readlines()]
-        # print(rows, len(rows))
 
     g = InfectionGrid(rows, 12, 12)
-    # g.current_row = 1
-    # g.current_col = -1
-    g.print(20)
+    g.print(15)
+
     for i in range(10000):
         g.burst()
 
-    # g.print()
     print(g.infection_count)
 
 
