@@ -276,9 +276,9 @@ def main():
         rows = [r.strip() for r in f.readlines()]
         # print(rows, len(rows))
 
-    g = InfectionGrid(rows, 13, 13)
-    g.current_row = 1
-    g.current_col = -1
+    g = InfectionGrid(rows, 12, 12)
+    # g.current_row = 1
+    # g.current_col = -1
     g.print(20)
     for i in range(10000):
         g.burst()
